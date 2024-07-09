@@ -2,6 +2,7 @@
   "name": "appium-workshops",
   "main": "index.js",
   "scripts": {
+    "appium": "appium --allow-cors",
     "ios": "wdio run ./wdio.conf.ts"
   },
   "license": "ISC",
