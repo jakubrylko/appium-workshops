@@ -5,7 +5,7 @@ export const config: Options.Testrunner = {
   ...baseConfig,
   capabilities: [
     {
-      'appium:noReset': true
+      'appium:noReset': false
     }
   ],
   services: [['appium', { command: 'appium' }]],
