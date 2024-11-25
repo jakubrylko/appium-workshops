@@ -1,5 +1,5 @@
-import { HomeScreen } from '../screens/home/Home.screen'
-import { LoginAssertion } from '../screens/login/Login.assertion'
+import { HomeScreen } from '../../screens/Wdio/Homepage/Home.screen'
+import { LoginAssertion } from '../../screens/Wdio/Login/Login.assertion'
 
 describe('Login', () => {
   it('Should login', async () => {

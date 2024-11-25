@@ -9,10 +9,10 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       platformName: 'iOS',
-      'appium:deviceName': 'iPhone 15',
-      'appium:platformVersion': '17.5',
+      'appium:deviceName': 'iPhone 16',
+      'appium:platformVersion': '18.1',
       'appium:automationName': 'XCUITest',
-      'appium:app': './apps/wdio-ios.zip',
+      'appium:app': './apps/wikipedia.zip',
       ...baseCapabilities[0]
     }
   ]

@@ -8,6 +8,6 @@ export const config: Options.Testrunner = {
       'appium:noReset': true
     }
   ],
-  services: ['appium'],
+  services: [['appium', { command: 'appium' }]],
   port: 4723
 }

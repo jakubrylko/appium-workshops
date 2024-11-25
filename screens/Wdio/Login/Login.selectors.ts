@@ -1,4 +1,4 @@
-import BaseClass from '../baseClass'
+import BaseClass from '../../BaseClass'
 
 export class LoginSelectors extends BaseClass {
   get emailInput() {

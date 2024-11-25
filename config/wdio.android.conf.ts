@@ -12,7 +12,9 @@ export const config: Options.Testrunner = {
       'appium:deviceName': 'Pixel_8_API_35',
       'appium:platformVersion': '15.0',
       'appium:automationName': 'UIAutomator2',
-      'appium:app': './apps/wdio-android.apk',
+      'appium:app': './apps/wikipedia.apk',
+      'appium:autoGrantPermissions': true,
+      'appium:appWaitActivity': '*',
       ...baseCapabilities[0]
     }
   ]
