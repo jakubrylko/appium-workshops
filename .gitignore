@@ -1,3 +1,4 @@
 apps
 logs
 node_modules
+.env
