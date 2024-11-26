@@ -5,7 +5,7 @@ describe('Onboarding', () => {
   const OnboardingBase = new OnboardingBaseClass()
   const Home = new HomeAssertion()
 
-  it('Should display logo', async () => {
+  it('Should display Wikipedia logo', async () => {
     await OnboardingBase.completeOnboarding()
     await Home.assertLogo()
   })

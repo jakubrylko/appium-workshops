@@ -1,17 +1,17 @@
 export default class BaseClass {
   constructor() {}
 
-  getPlatformSelector(selectorIOS: string, selectorAndroid: string) {
+  getPlatformSelector(selectorAndroid: string, selectorIOS: string) {
     return driver.isAndroid ? selectorAndroid : selectorIOS
   }
 
   getSelector(
-    predicateIOS: string,
     predicateAndroid: string,
+    predicateIOS: string,
     method = 'resourceId'
   ) {
-    const selectorIOS = `~${predicateIOS}`
     const selectorAndroid = `android=new UiSelector().${method}("${predicateAndroid}")`
-    return $(this.getPlatformSelector(selectorIOS, selectorAndroid))
+    const selectorIOS = `-ios class chain:${predicateIOS}`
+    return $(this.getPlatformSelector(selectorAndroid, selectorIOS))
   }
 }
