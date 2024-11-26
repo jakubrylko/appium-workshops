@@ -13,8 +13,10 @@ export const config: Options.Testrunner = {
       'appium:platformVersion': '15.0',
       'appium:automationName': 'UIAutomator2',
       'appium:app': './apps/wikipedia.apk',
-      'appium:autoGrantPermissions': true,
+      'appium:appPackage': 'org.wikipedia.alpha',
+      'appium:appActivity': 'org.wikipedia.DefaultIcon',
       'appium:appWaitActivity': '*',
+      'appium:autoGrantPermissions': true,
       ...baseCapabilities[0]
     }
   ]
