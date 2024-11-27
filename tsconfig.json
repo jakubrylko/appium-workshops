@@ -22,5 +22,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["tests", "config", "screens"]
+  "include": ["config", "tests", "screens"]
 }
