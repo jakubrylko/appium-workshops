@@ -1,11 +1,11 @@
-name: Appium Android BrowserStack
+name: Appium BrowserStack
 run-name: Testing on ${{ github.head_ref }}
 
 on:
   pull_request:
 
 jobs:
-  tests:
+  android:
     name: Appium Android BrowserStack
     runs-on: ubuntu-latest
     steps:
