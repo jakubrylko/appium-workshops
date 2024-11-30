@@ -31,5 +31,5 @@ jobs:
         run: npm run bstack:android wikipedia
         env:
           APP_ID: ${{ env.APP_ID }}
-          BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
+          # BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
+          # BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
