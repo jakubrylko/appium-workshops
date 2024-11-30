@@ -27,9 +27,9 @@ jobs:
             -F "file=@${GITHUB_WORKSPACE}/apps/wikipedia.apk")
           app_url=$(echo "$response" | jq -r '.app_url')
           echo "APP_ID=$app_url" >> $GITHUB_ENV
-      # - name: Run Android tests on BrowserStack
-      #   run: npm run bstack:android wikipedia
-      #   env:
-      #     APP_ID: ${APP_ID}
-      #     BROWSERSTACK_USERNAME: ${USERNAME}
-      #     BROWSERSTACK_ACCESS_KEY: ${ACCESS_KEY}
+      - name: Run Android tests on BrowserStack
+        run: npm run bstack:android wikipedia
+        env:
+          APP_ID: ${APP_ID}
+          BROWSERSTACK_USERNAME: ${USERNAME}
+          BROWSERSTACK_ACCESS_KEY: ${ACCESS_KEY}
