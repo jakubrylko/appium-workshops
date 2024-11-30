@@ -2,7 +2,7 @@ import type { Options } from '@wdio/types'
 import { config as baseConfig } from './wdio.shared.conf'
 import 'dotenv/config'
 
-const { APP_ID, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME, CI, PLATFORM } =
+const { APP_ID, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME, PLATFORM } =
   process.env
 
 const isAndroid = () => PLATFORM === 'android'
