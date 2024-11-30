@@ -25,11 +25,10 @@ jobs:
           response=$(curl -u "${USERNAME}:${ACCESS_KEY}" \
             -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
             -F "file=@${GITHUB_WORKSPACE}/apps/wikipedia.apk")
-          app_url=$(echo "$response" | jq -r '.app_url')
-          echo "APP_ID=$app_url" >> $GITHUB_ENV
+           echo "APP_ID=$(echo "$response" | jq -r '.app_url')" >> $GITHUB_ENV
       - name: Run Android tests on BrowserStack
         run: npm run bstack:android wikipedia
         env:
           APP_ID: ${{ env.APP_ID }}
-          # BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
-          # BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
+          BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
