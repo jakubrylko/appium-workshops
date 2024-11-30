@@ -5,9 +5,12 @@ on:
   pull_request:
 
 jobs:
-  android:
-    name: Appium Android BrowserStack
+  bstack:
+    name: Appium Android
     runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,8 +20,15 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
+      - name: Upload APK to BrowserStack
+        run: |
+          response=$(curl -u "${USERNAME}:${ACCESS_KEY}" \
+            -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
+            -F "file=@${GITHUB_WORKSPACE}/apps/wikipedia.apk")
+          echo "APP_ID=$(echo "$response" | jq -r '.app_url')" >> $GITHUB_ENV
       - name: Run Android tests on BrowserStack
-        env:
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: npm run bstack:android wikipedia
+        env:
+          APP_ID: ${{ env.APP_ID }}
+          BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
