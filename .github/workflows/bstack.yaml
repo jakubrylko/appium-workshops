@@ -30,6 +30,6 @@ jobs:
       - name: Run Android tests on BrowserStack
         run: npm run bstack:android wikipedia
         env:
-          APP_ID: ${APP_ID}
-          BROWSERSTACK_USERNAME: ${USERNAME}
-          BROWSERSTACK_ACCESS_KEY: ${ACCESS_KEY}
+          APP_ID: ${{ env.APP_ID }}
+          BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
