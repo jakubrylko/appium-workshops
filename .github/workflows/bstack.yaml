@@ -22,11 +22,12 @@ jobs:
         run: npm install
       - name: Upload APK to BrowserStack
         run: |
-          curl -u "${USERNAME}:${ACCESS_KEY}" \
+          response=$(curl -u "${USERNAME}:${ACCESS_KEY}" \
             -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-            -F "file=@${GITHUB_WORKSPACE}/apps/wikipedia.apk"
+            -F "file=@${GITHUB_WORKSPACE}/apps/wikipedia.apk")
+          echo "Response: $response"
       # - name: Run Android tests on BrowserStack
       #   run: npm run bstack:android wikipedia
       #   env:
-      #     BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-      #     BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      #     BROWSERSTACK_USERNAME: ${USERNAME}
+      #     BROWSERSTACK_ACCESS_KEY: ${ACCESS_KEY}
