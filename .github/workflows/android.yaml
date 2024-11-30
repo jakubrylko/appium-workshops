@@ -1,12 +1,12 @@
-name: Appium Android tests
-run-name: ${{ github.event_name == 'pull_request' && format('Testing on {0}', github.head_ref) || 'Testing on main' }}
+name: Appium BrowserStack
+run-name: Testing on ${{ github.head_ref }}
 
 on:
   pull_request:
 
 jobs:
-  appium-android:
-    name: Appium Android tests
+  tests:
+    name: Appium BrowserStack
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,5 +15,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Run tests on BrowserStack
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: npm run bstack:android
