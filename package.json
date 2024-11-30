@@ -6,7 +6,8 @@
   "scripts": {
     "android": "wdio run config/wdio.android.conf.ts --spec",
     "appium": "appium -p 4724 --allow-cors",
-    "bstack": "wdio run config/wdio.browserstack.conf.ts --spec",
+    "bstack:android": "PLATFORM=android wdio run config/wdio.browserstack.conf.ts --spec",
+    "bstack:ios": "PLATFORM=ios wdio run config/wdio.browserstack.conf.ts --spec",
     "ios": "wdio run config/wdio.ios.conf.ts --spec"
   },
   "devDependencies": {
