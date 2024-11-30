@@ -12,7 +12,9 @@ export const config: Options.Testrunner = {
     [
       'browserstack',
       {
-        app: isAndroid() ? 'apps/wikipedia.apk' : 'apps/wikipedia.ipa',
+        app: process.env.CI
+          ? { id: 'bs://2ada322b7ae490a5b62a1a9f8a2f8531f241c623' }
+          : { path: isAndroid() ? 'apps/wikipedia.apk' : 'apps/wikipedia.ipa' },
         buildIdentifier: '#${DATE_TIME}'
       }
     ]
