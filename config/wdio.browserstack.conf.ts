@@ -2,18 +2,21 @@ import type { Options } from '@wdio/types'
 import { config as baseConfig } from './wdio.shared.conf'
 import 'dotenv/config'
 
-const isAndroid = () => process.env.PLATFORM === 'android'
+const { APP_ID, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME, CI, PLATFORM } =
+  process.env
+
+const isAndroid = () => PLATFORM === 'android'
 
 export const config: Options.Testrunner = {
   ...baseConfig,
-  user: process.env.BROWSERSTACK_USERNAME,
-  key: process.env.BROWSERSTACK_ACCESS_KEY,
+  user: BROWSERSTACK_USERNAME,
+  key: BROWSERSTACK_ACCESS_KEY,
   services: [
     [
       'browserstack',
       {
-        app: process.env.CI
-          ? { id: 'bs://2ada322b7ae490a5b62a1a9f8a2f8531f241c623' }
+        app: CI
+          ? { id: APP_ID }
           : { path: isAndroid() ? 'apps/wikipedia.apk' : 'apps/wikipedia.ipa' },
         buildIdentifier: '#${DATE_TIME}'
       }
