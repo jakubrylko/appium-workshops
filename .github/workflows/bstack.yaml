@@ -1,13 +1,30 @@
 name: Appium BrowserStack
-run-name: Testing on ${{ github.head_ref }}
+run-name: Testing main on BrowserStack
 
 on:
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform
+        required: true
+        default: 'Android'
+        type: 'choice'
+        options:
+          - 'Android'
+          - 'iOS'
+      tests:
+        description: Tests
+        required: false
+        default: 'wikipedia'
+        type: 'string'
 
 jobs:
-  android:
-    name: Appium Android BrowserStack
+  bstack:
+    name: Appium ${{ inputs.platform }}
     runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,8 +34,29 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
-      - name: Run Android tests on BrowserStack
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Determine file to upload
+        run: |
+          if [[ "${{ inputs.platform }}" == "Android" ]]; then
+            echo "APP_FILE=${GITHUB_WORKSPACE}/apps/wikipedia.apk" >> $GITHUB_ENV
+          else [[ "${{ inputs.platform }}" == "iOS" ]]; then
+            echo "APP_FILE=${GITHUB_WORKSPACE}/apps/wikipedia.ipa" >> $GITHUB_ENV
+          fi
+      - name: Upload application file to BrowserStack
+        run: |
+          response=$(curl -u "${USERNAME}:${ACCESS_KEY}" \
+            -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
+            -F "file=@${APP_FILE}")
+          echo "APP_ID=$(echo "$response" | jq -r '.app_url')" >> $GITHUB_ENV
+      - name: Run ${{ inputs.platform }} tests on BrowserStack
+        run: |
+          if [[ "${{ inputs.platform }}" == "Android" ]]; then
+            npm run bstack:android ${{ inputs.tests }}
+          else [[ "${{ inputs.platform }}" == "iOS" ]]; then
+            npm run bstack:ios ${{ inputs.tests }}
+          fi
         env:
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-        run: npm run bstack:android wikipedia
+          APP_ID: ${{ env.APP_ID }}
+          BROWSERSTACK_USERNAME: ${{ env.USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ env.ACCESS_KEY }}
