@@ -40,7 +40,7 @@ jobs:
         run: |
           if [[ "${{ inputs.platform }}" == "Android" ]]; then
             echo "APP_FILE=${GITHUB_WORKSPACE}/apps/wikipedia.apk" >> $GITHUB_ENV
-          else [[ "${{ inputs.platform }}" == "iOS" ]]; then
+          elif [[ "${{ inputs.platform }}" == "iOS" ]]; then
             echo "APP_FILE=${GITHUB_WORKSPACE}/apps/wikipedia.ipa" >> $GITHUB_ENV
           fi
       - name: Upload application file to BrowserStack
@@ -53,7 +53,7 @@ jobs:
         run: |
           if [[ "${{ inputs.platform }}" == "Android" ]]; then
             npm run bstack:android ${{ inputs.tests }}
-          else [[ "${{ inputs.platform }}" == "iOS" ]]; then
+          elif [[ "${{ inputs.platform }}" == "iOS" ]]; then
             npm run bstack:ios ${{ inputs.tests }}
           fi
         env:
